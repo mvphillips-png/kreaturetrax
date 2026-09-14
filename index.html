@@ -508,9 +508,10 @@ async function callPass(task, tokens){
 }
 
 function parseFailMsg(r){
-  if(r.stop==='max_tokens') return 'That came back too long to read cleanly — try Lite mode or run again.';
+  if(r.stop==='refusal') return 'The model declined this subject. Kreature Trax works best on concrete things, places, skills, and clearly-defined pursuits — try naming a specific one.';
+  if(r.stop==='max_tokens') return 'That response got cut off before it finished — run it again, or try a more specific subject.';
   if(r.raw && r.raw.indexOf('{')!==-1) return 'Had trouble reading that response — please run again.';
-  return 'Couldn\'t turn that into a field guide. Kreature Trax hunts everyday objects and places — try something like "umbrellas" or "parking lots." Real people, brands, logos, and news posts aren\'t a fit.';
+  return 'Couldn\'t turn that into a field guide. Kreature Trax hunts concrete things, places, skills, and pursuits — try something like "umbrellas," "parking lots," or "distance running." Vague feelings, real people, brands, and news posts aren\'t a fit.';
 }
 
 async function run(){
@@ -528,19 +529,19 @@ async function run(){
   try{
     if(mode==='lite'){
       setStatus('<span class="scan">Sniffing out the trail</span>');
-      const r = await callPass(LITE_INSTRUCTION+thingLine+imgLine, 1300);
+      const r = await callPass(LITE_INSTRUCTION+thingLine+imgLine, 4000);
       if(!r.parsed) throw new Error(parseFailMsg(r));
       render(r.parsed);
       setStatus('');
     } else if(mode==='carousel'){
       setStatus('<span class="scan">Building the viral carousel</span>');
-      const r = await callPass(CAROUSEL_INSTRUCTION+thingLine+imgLine, 2600);
+      const r = await callPass(CAROUSEL_INSTRUCTION+thingLine+imgLine, 6000);
       if(!r.parsed) throw new Error(parseFailMsg(r));
       render(r.parsed);
       setStatus('');
     } else if(mode==='social'){
       setStatus('<span class="scan">Dropping the post pack</span>');
-      const r = await callPass(SOCIAL_INSTRUCTION+thingLine+imgLine, 2800);
+      const r = await callPass(SOCIAL_INSTRUCTION+thingLine+imgLine, 6000);
       if(!r.parsed) throw new Error(parseFailMsg(r));
       render(r.parsed);
       setStatus('');
@@ -548,8 +549,8 @@ async function run(){
       // Two-pass Standard: split so neither request truncates or times out.
       setStatus('<span class="scan">Hunting the trax · two passes</span>');
       const [ra,rb] = await Promise.allSettled([
-        callPass(INSTRUCTION_A+thingLine+imgLine, 5500),
-        callPass(INSTRUCTION_B+thingLine+imgLine, 3800)
+        callPass(INSTRUCTION_A+thingLine+imgLine, 10000),
+        callPass(INSTRUCTION_B+thingLine+imgLine, 8000)
       ]);
       if(ra.status==='rejected') throw new Error(ra.reason.message);
       const A=ra.value;
