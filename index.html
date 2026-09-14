@@ -166,6 +166,13 @@
       border:1px solid var(--line);border-left:4px solid var(--bone);border-radius:4px;padding:18px 21px;margin-bottom:26px;}
   .reveal .rk{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--bone);margin-bottom:8px;}
   .reveal .rv{font-family:var(--body);font-weight:500;font-size:19px;line-height:1.5;color:var(--bone);}
+  .reveal.has-move{margin-bottom:9px;}
+  /* run it down — the pursuit beat under the reveal */
+  .runit{background:linear-gradient(180deg,rgba(168,220,26,.1),rgba(168,220,26,.02));
+      border:1px solid rgba(168,220,26,.42);border-left:4px solid var(--lime);border-radius:4px;padding:16px 21px;margin-bottom:26px;}
+  .runit .rik{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--lime);margin-bottom:8px;}
+  .runit .rik::before{content:"\27A4  ";}
+  .runit .riv{font-family:var(--body);font-weight:500;font-size:17.5px;line-height:1.52;color:var(--bone);}
 
   /* lettering chips */
   .chips{display:flex;flex-wrap:wrap;gap:10px;}
@@ -389,6 +396,7 @@ Respond with ONLY valid JSON — no markdown, no preamble — in EXACTLY this sh
   "read": "1-2 sentences: what this thing really is and why it deserves a whole Kreature Trax guide",
   "take": "THE KREATURE'S TAKE — one savage, funny line in the one-eyed Kreature's own voice about this thing. Example energy: 'Humans built an entire store to make finding food easier, then invented seventeen ways to make choosing dinner harder.'",
   "reveal": "one punchy line: what this ordinary thing quietly reveals about us — the closing truth",
+  "move": "RUN IT DOWN — the tracker has read the sign; this is the pursuit. One or two tight, imperative lines in the Kreature's voice that turn the reveal into something the reader actually DOES differently. Specific and honest — the payoff to the insight, never generic advice.",
   "experts": [{"who":"the authority's name","cred":"why they have ACTUAL results — what they've won, coached, proven, built, or researched (the reason their trail is worth following)","trax":"the core principle, method, or counterintuitive clue they're known for — paraphrased in YOUR words, the takeaway worth stealing (never a fabricated quote)","source":"their key book, method, or work so a reader can go to the source — omit entirely if you're not sure it's real"}],
   "origin": [{"n":"stage / era / origin point","d":"what it was or what changed — the drawable moment (old version, first form, the accident that made it)"}],
   "anatomy": [{"n":"part / mechanism / species / type","d":"the quiet detail worth pointing at — drawn as a cutaway, label, exploded view, or species tell"}],
@@ -429,6 +437,7 @@ Respond with ONLY valid JSON — no markdown, no preamble — in EXACTLY this sh
   "read": "1 sentence: what it really is and why it's secretly interesting",
   "take": "THE KREATURE'S TAKE — one savage, funny line in the Kreature's voice",
   "reveal": "one punchy line: what this thing quietly reveals about us",
+  "move": "RUN IT DOWN — the tracker has read the sign; this is the pursuit. One or two tight, imperative lines in the Kreature's voice that turn the reveal into something the reader actually DOES differently — specific and honest, never generic advice.",
   "experts": [{"who":"an authority's name","cred":"why they have real results","trax":"the core clue they're known for, paraphrased in your words","source":"their key work — omit if unsure"}],
   "ideas": ["a drawable one-line trail — a part, a species, a human behavior, a clever bit, or a ridiculous bit; strongest first"],
   "go_look": ["a specific thing to NOTICE next time you meet one — observable, not trivia"]
@@ -641,6 +650,14 @@ function expertsHTML(d){
   return h;
 }
 
+// The reveal (insight) + Run It Down (the pursuit — what to actually do with it).
+function revealHTML(d){
+  let h='';
+  if(d.reveal) h+=`<div class="reveal${d.move?' has-move':''}"><div class="rk">What the trax reveal</div><div class="rv">${esc(d.reveal)}</div></div>`;
+  if(d.move) h+=`<div class="runit"><div class="rik">Run It Down</div><div class="riv">${esc(d.move)}</div></div>`;
+  return h;
+}
+
 function bodyHTML(d){
   let h='';
 
@@ -689,7 +706,7 @@ function bodyHTML(d){
     if(glL.length){
       h+=`<div class="golook"><div class="glk">Go Look</div><div class="gls">next time you meet one, notice —</div>${glL.map(x=>`<div class="gl">${esc(x)}</div>`).join('')}</div>`;
     }
-    if(d.reveal) h+=`<div class="reveal"><div class="rk">What the trax reveal</div><div class="rv">${esc(d.reveal)}</div></div>`;
+    if(d.reveal||d.move) h+=revealHTML(d);
     return h;
   }
 
@@ -711,7 +728,7 @@ function bodyHTML(d){
   if(gl.length){
     h+=`<div class="golook"><div class="glk">Go Look</div><div class="gls">next time you meet one, notice —</div>${gl.map(x=>`<div class="gl">${esc(x)}</div>`).join('')}</div>`;
   }
-  if(d.reveal) h+=`<div class="reveal"><div class="rk">What the trax reveal</div><div class="rv">${esc(d.reveal)}</div></div>`;
+  if(d.reveal||d.move) h+=revealHTML(d);
 
   // ---- illustrator assembly kit ----
   const lt=(d.lettering||[]).filter(x=>x&&x.phrase).slice(0,5);
@@ -828,6 +845,7 @@ function kitToText(d){
     head('Trax on the Trail'); list(d.ideas);
     if((d.go_look||[]).length){ head('Go Look — Notice Next Time'); list(d.go_look); }
     if(d.reveal){ head('What the Trax Reveal'); push(d.reveal); }
+    if(d.move){ head('Run It Down'); push(d.move); }
     push(''); push('—'); push('Follow the trax. See the ordinary differently.');
     return L.join('\n');
   }
@@ -841,6 +859,7 @@ function kitToText(d){
   if((d.survival||[]).length){ head('05 · The Survival Trax'); list(d.survival); }
   if((d.go_look||[]).length){ head('Go Look — Notice Next Time'); list(d.go_look); }
   if(d.reveal){ head('What the Trax Reveal'); push(d.reveal); }
+  if(d.move){ head('Run It Down'); push(d.move); }
   if((d.lettering||[]).length){ head('Lettering Opportunities'); (d.lettering||[]).forEach(x=>{ if(x&&x.phrase) push('- "'+x.phrase+'"'+(x.note?' — '+x.note:'')); }); }
   if((d.palette||[]).length){ head('Color Inspiration'); (d.palette||[]).forEach(x=>{ if(x&&x.hex) push('- '+(x.name||'')+' '+x.hex+(x.note?' — '+x.note:'')); }); }
   if(d.cover||d.spread||d.poster){ head('Composition Starts'); if(d.cover) push('Cover: '+d.cover); if(d.spread) push('Hero spread: '+d.spread); if(d.poster) push('Poster: '+d.poster); }
