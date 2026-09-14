@@ -132,6 +132,15 @@
   .item .nm{font-family:var(--head);font-weight:600;font-size:17px;color:var(--bone);line-height:1.25;letter-spacing:.01em;}
   .item .ds{font-size:14.5px;line-height:1.52;color:var(--text);margin-top:5px;}
 
+  /* experts — who left the trax */
+  .expert{background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--line);
+      border-left:3px solid var(--amber);border-radius:4px;padding:14px 16px;margin-bottom:10px;}
+  .expert .ew{font-family:var(--head);font-weight:700;font-size:18px;color:var(--bone);letter-spacing:.01em;}
+  .expert .ec{font-family:var(--mono);font-size:11.5px;color:var(--amber);letter-spacing:.02em;margin-top:4px;line-height:1.45;}
+  .expert .et{font-size:15px;line-height:1.55;color:var(--text);margin-top:9px;}
+  .expert .es{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:9px;padding-top:8px;border-top:1px dashed var(--line);}
+  .expert .es b{color:var(--lime);font-weight:400;}
+
   .plist{display:grid;gap:9px;}
   .pl{font-size:15px;line-height:1.5;color:var(--text);padding-left:20px;position:relative;}
   .pl::before{content:"\27A4";position:absolute;left:0;color:var(--lime);font-size:12px;top:3px;}
@@ -193,16 +202,21 @@
   /* carousel slides */
   .slide{background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--line);
       border-left:3px solid var(--lime);border-radius:4px;padding:16px 18px;margin-bottom:11px;animation:rise .4s ease both;}
-  .slide.r-hook{border-left-color:var(--amber);}
-  .slide.r-cta{border-left-color:var(--bone);}
+  .slide.r-cover{border-left-color:var(--amber);}
+  .slide.r-tension{border-left-color:var(--rust);}
+  .slide.r-payoff{border-left-color:var(--bone);}
+  .slide.r-act{border-left-color:var(--amber);}
   .slide-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
   .slide-no{font-family:var(--grunge);font-weight:400;font-size:16px;color:#08222a;background:var(--lime);
       min-width:28px;height:28px;padding:0 6px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .r-hook .slide-no{background:var(--amber);} .r-cta .slide-no{background:var(--bone);}
+  .r-cover .slide-no{background:var(--amber);} .r-tension .slide-no{background:var(--rust);}
+  .r-payoff .slide-no{background:var(--bone);} .r-act .slide-no{background:var(--amber);}
   .slide-role{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
-  .r-hook .slide-role{color:var(--amber);} .r-cta .slide-role{color:var(--bone);}
+  .r-cover .slide-role{color:var(--amber);} .r-tension .slide-role{color:var(--rust);}
+  .r-payoff .slide-role{color:var(--bone);} .r-act .slide-role{color:var(--amber);}
   .slide-h{font-family:var(--grunge);font-weight:400;font-size:20px;letter-spacing:.01em;color:var(--lime);line-height:1.15;}
-  .r-hook .slide-h{color:var(--amber);}
+  .r-cover .slide-h{color:var(--amber);} .r-tension .slide-h{color:var(--rust);}
+  .r-payoff .slide-h{color:var(--bone);} .r-act .slide-h{color:var(--amber);}
   .slide-b{font-size:15.5px;line-height:1.5;color:var(--text);margin-top:7px;}
   .slide-v{font-size:13px;line-height:1.45;color:var(--muted);margin-top:10px;padding-top:9px;border-top:1px dashed var(--line);}
   .slide-vk{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);
@@ -259,7 +273,7 @@
       <div class="tag">Kreature Trax · Field Instrument</div>
     </div>
     <h1>KREATURE <span class="wt">TRAX</span></h1>
-    <div class="sub">Not a Wikipedia dump. A Kreature's <b>x-ray</b> for an ordinary thing. Name something you walk past every day — or upload a photo — and the Kreatures hunt its <b>trax</b>: a five-part field guide of anatomy, human behavior, the surprisingly clever bit, the surprisingly ridiculous bit, and the one thing you'll never un-see.</div>
+    <div class="sub">Not a Wikipedia dump. The Kreatures collect the clues that <b>success</b> leaves behind. Name an ordinary thing you walk past — or a skill, a pursuit, a subject — and they hunt its <b>trax</b>: how it really works, the humans around it, the one thing you'll never un-see, and what the people with <b>actual results</b> already know about it.</div>
     <div class="promise">Follow the trax. See the ordinary differently.</div>
   </header>
 
@@ -271,7 +285,7 @@
   <div class="io">
     <label class="lbl">Ordinary thing · type it and / or upload a photo</label>
     <div class="thingrow">
-      <input class="thing" id="thing" placeholder="e.g. shopping carts, parking lots, umbrellas, traffic cones">
+      <input class="thing" id="thing" placeholder="e.g. shopping carts, umbrellas, distance running, negotiation, sleep">
       <input class="gno" id="gno" placeholder="No. 001">
     </div>
     <div class="row">
@@ -287,7 +301,7 @@
       <select id="depth">
         <option value="standard">Standard &middot; full five-trax field guide</option>
         <option value="lite">Lite &middot; quick trail dump (cheapest)</option>
-        <option value="carousel">Carousel &middot; one swipe-through post</option>
+        <option value="carousel">Carousel &middot; viral swipe-through post</option>
         <option value="social">Social &middot; a pack of standalone posts</option>
       </select>
     </div>
@@ -330,6 +344,11 @@ const thingEl=$('thing'), gnoEl=$('gno'), statusEl=$('status'), outEl=$('out'), 
     div.innerHTML=`<div class="fn"><b>${num}</b>${n}</div><div class="fd">${d}</div>`;
     flist.appendChild(div);
   });
+  const ex=document.createElement('div');
+  ex.className='f';
+  ex.style.borderLeftColor='var(--amber)';
+  ex.innerHTML=`<div class="fn" style="color:var(--amber)"><b style="color:var(--lime)">\u2726</b>Who Left the Trax</div><div class="fd">Across all five: the people with ACTUAL results on the subject — coaches, champions, researchers, makers. Their core principles, paraphrased and attributed, so you can steal them and test them yourself.</div>`;
+  flist.appendChild(ex);
 })();
 
 $('pick').addEventListener('click',()=>$('file').click());
@@ -355,12 +374,14 @@ THE KREATURE CODE (voice + rules):
 - SAVAGE CURIOSITY, BRUTAL CLARITY. Funny, sharp, a little feral — but genuinely useful and never cruel. No fluff. No vibes-only nonsense.
 - REJECT GENERIC. "It has wheels" is nothing. "The front-left caster that's always slightly off, so every cart pulls left in the exact aisle you're trying to steer straight" is a trail worth following. Every item must be specific, particular, observable, and drawable.
 - HUMAN BEHAVIOR is a signature trax. The predictable, automatic, faintly absurd things people do around the thing are gold.
-- FOLLOW THE EVIDENCE. TEST THE TRAIL. KEEP WHAT WORKS. Do NOT fabricate an inventor, a patent date, a "first invented in [year]", or a statistic. If you are not genuinely sure a specific name/date/number is true, leave it out — or, in the pass that has a "verify" field, route it there. A true "nobody's certain who first did this" beats a confident fabrication every time.`;
+- FOLLOW THE EVIDENCE. TEST THE TRAIL. KEEP WHAT WORKS. Do NOT fabricate an inventor, a patent date, a "first invented in [year]", or a statistic. If you are not genuinely sure a specific name/date/number is true, leave it out — or, in the pass that has a "verify" field, route it there. A true "nobody's certain who first did this" beats a confident fabrication every time.
+- HUNT THE PEOPLE WHO LEFT THE TRAX. Kreature Trax collects the clues that SUCCESS leaves behind. For ANY subject — an ordinary object, a skill, or a whole pursuit — find the real authorities: the coaches, researchers, makers, champions and practitioners with ACTUAL RESULTS, not just fame or a loud podcast. "Who has actual results?" is the filter. For distance running that's names like Jack Daniels (Daniels' Running Formula) or Matt Fitzgerald (How Bad Do You Want It?); for a pour-over, a James Hoffmann; for negotiation, a Chris Voss. Surface WHAT THEY ACTUALLY KNOW — the principle, the method, the counterintuitive clue worth stealing — and reach for the people with the strongest proof, not the most followers.
+- ATTRIBUTE HONESTLY, NEVER FABRICATE. Paraphrase an expert's idea in your OWN words — NEVER invent a direct quote, a book title, a statistic, or a claim they did not make. Only name a person, work, or idea you are genuinely confident is real and correctly attributed; route anything shakier to the "verify" field. It is honest and on-brand to note where experts disagree, or where a popular figure's results are contested — a tactic that worked for one person may not generalize. Test the trail; keep what works.`;
 
 // PASS 1 — the narrative drawable core: Origin, Anatomy, Human + the Kreature's Take.
 const INSTRUCTION_A = `${PREAMBLE}
 
-THIS IS PASS 1 OF 2 — the drawable core (the first three trax). Return ONLY the sections below, as raw illustration ideas, strongest and most-illustratable first, capped. Each item is a short name plus a specific, drawable description — no scores, no ratings.
+THIS IS PASS 1 OF 2 — the drawable core (the first three trax) plus the experts who left the trax. Return ONLY the sections below. The trax items are raw illustration ideas, strongest and most-illustratable first, capped; each is a short name plus a specific, drawable description — no scores, no ratings.
 
 Respond with ONLY valid JSON — no markdown, no preamble — in EXACTLY this shape:
 {
@@ -368,11 +389,12 @@ Respond with ONLY valid JSON — no markdown, no preamble — in EXACTLY this sh
   "read": "1-2 sentences: what this thing really is and why it deserves a whole Kreature Trax guide",
   "take": "THE KREATURE'S TAKE — one savage, funny line in the one-eyed Kreature's own voice about this thing. Example energy: 'Humans built an entire store to make finding food easier, then invented seventeen ways to make choosing dinner harder.'",
   "reveal": "one punchy line: what this ordinary thing quietly reveals about us — the closing truth",
+  "experts": [{"who":"the authority's name","cred":"why they have ACTUAL results — what they've won, coached, proven, built, or researched (the reason their trail is worth following)","trax":"the core principle, method, or counterintuitive clue they're known for — paraphrased in YOUR words, the takeaway worth stealing (never a fabricated quote)","source":"their key book, method, or work so a reader can go to the source — omit entirely if you're not sure it's real"}],
   "origin": [{"n":"stage / era / origin point","d":"what it was or what changed — the drawable moment (old version, first form, the accident that made it)"}],
   "anatomy": [{"n":"part / mechanism / species / type","d":"the quiet detail worth pointing at — drawn as a cutaway, label, exploded view, or species tell"}],
   "human": [{"n":"the behavior / unwritten rule / repeated mistake","d":"the predictable, drawable thing people do around it"}]
 }
-CAPS: origin up to 6, anatomy up to 8, human up to 7.`;
+CAPS: experts up to 6 — only real people with genuine results; fewer is fine and NEVER manufacture an expert to fill the list. origin up to 6, anatomy up to 8, human up to 7.`;
 
 // PASS 2 — the payoff trax + the illustrator assembly kit.
 const INSTRUCTION_B = `${PREAMBLE}
@@ -407,32 +429,44 @@ Respond with ONLY valid JSON — no markdown, no preamble — in EXACTLY this sh
   "read": "1 sentence: what it really is and why it's secretly interesting",
   "take": "THE KREATURE'S TAKE — one savage, funny line in the Kreature's voice",
   "reveal": "one punchy line: what this thing quietly reveals about us",
+  "experts": [{"who":"an authority's name","cred":"why they have real results","trax":"the core clue they're known for, paraphrased in your words","source":"their key work — omit if unsure"}],
   "ideas": ["a drawable one-line trail — a part, a species, a human behavior, a clever bit, or a ridiculous bit; strongest first"],
   "go_look": ["a specific thing to NOTICE next time you meet one — observable, not trivia"]
 }
-CAPS: ideas 12-18, go_look 3-5.`;
+CAPS: experts up to 3 (real ones only; skip the field if the subject has no clear authorities), ideas 12-18, go_look 3-5.`;
 
 const CAROUSEL_INSTRUCTION = `${PREAMBLE}
 
-You are in CAROUSEL mode. Given an ORDINARY THING, write a 5-to-10-slide social-media carousel that takes a scroller on a short, surprising, guided hunt through that everyday object — the kind of post that makes someone stop and think "I never looked at it that way." This is a social post, NOT the illustration kit.
+You are in CAROUSEL mode — you build VIRAL carousels, not boring ones. Given an ORDINARY THING, write a 6-to-10-slide swipe-through carousel that stops the scroll and makes someone think "wait… what's next?" — and keep swiping to find out. This is a social post, NOT the illustration kit.
 
-STRUCTURE:
-- Slide 1 is the HOOK: a punchy title plus one line that creates curiosity or a small "wait, what?" — it must earn the swipe.
-- The MIDDLE slides (STORY) build a real arc: each reveals one interesting, specific, true thing and hands off to the next, so it reads as a guided hunt, not a list of trivia. Escalate toward the payoff.
-- The FINAL slide is the CLOSE: a one-line takeaway that lands the whole idea — the quiet truth about what this object reveals about us. Do NOT add a call to action, a follow/subscribe ask, or a "which one next" prompt. End on the thought itself.
+THE DIFFERENCE BETWEEN A BORING CAROUSEL AND A VIRAL ONE — obey the viral side of every rule:
+- BORING opens with a generic list title ("5 Tips to…") and a warm-up ("Hi guys! Today I'm going to share…") while the audience is already scrolling. VIRAL opens COLD — straight into tension, a bold statement that gives a reason to swipe. No intro. No warm-up.
+- BORING goes Information → Information → Information: it teaches but never creates curiosity. VIRAL follows the arc CURIOSITY → TENSION → INSIGHT → PAYOFF, so each slide makes the reader need the next one.
+- BORING crams a slide with paragraphs, tiny text, zero breathing room. VIRAL is ONE SLIDE = ONE IDEA — a big statement, then one simple line. Make the audience work less.
+- BORING gives generic advice ("be consistent"). VIRAL gives the SAME truth with a sharper, more specific, slightly contrarian perspective ("don't post every day — post often enough that they remember you"). Reframe the obvious into something concrete.
+- BORING ends with "Follow for more tips!" and the reader thinks "why?" VIRAL ends by giving a real reason to ACT that's earned by the payoff — look for it next time, save it before you pass another one, use it tomorrow — tied to what just shifted in the reader's head. NEVER "follow for more," never "which one next."
 
-VOICE: savage curiosity, brutal clarity, warm underneath — a little funny, never clickbaity or fake-hype. Keep each slide SHORT — a headline plus 1-2 tight sentences a person reads in a glance. Be honest: no fabricated dates, inventors, or numbers. For each slide, also suggest what to illustrate on it.
+SLIDE ROLES — use this arc:
+- COVER (exactly one, first): the cold-open big statement — the curiosity/tension hook that earns the swipe. No warm-up, no greeting.
+- TENSION: name the problem, the friction, or the thing everyone gets wrong about this ordinary object. Raise the stakes.
+- INSIGHT (several): one idea per slide — a big statement plus one simple line. Strong, specific perspective, not generic. This is the guided hunt through the thing's trax. When the subject is a skill or pursuit, an insight may come straight from someone with ACTUAL results — name them and paraphrase honestly (never a fabricated quote).
+- PAYOFF (exactly one, near the end): the reframe that makes it click — the quiet truth about what this ordinary thing reveals about us.
+- ACT (exactly one, last): the reason to act, earned by the payoff — e.g. "look for it next time you pass one," "save this before you walk by another." Never a hollow follow/subscribe ask.
+
+VOICE: savage curiosity, brutal clarity, warm underneath — funny, never clickbaity or fake-hype. Keep every slide SHORT: a big headline plus one tight line read in a glance. Be honest — no fabricated dates, inventors, or numbers. For each slide suggest ONE visual focus — design controls attention (big, then small; one focus at a time; never decorated clutter).
 
 Respond with ONLY valid JSON — no markdown, no preamble — in EXACTLY this shape:
 {
   "thing": "The ordinary thing, cleanly titled",
   "slides": [
-    {"role":"HOOK","headline":"slide 1 title","body":"the curiosity line that earns the swipe","visual":"what to draw / show on this slide"},
-    {"role":"STORY","headline":"short headline","body":"1-2 tight sentences revealing one interesting thing","visual":"what to draw / show"},
-    {"role":"CLOSE","headline":"the takeaway","body":"the one line that lands the whole idea — no call to action","visual":"what to draw / show"}
+    {"role":"COVER","headline":"the cold-open big statement that earns the swipe","body":"one short line of tension (optional)","visual":"the single visual focus"},
+    {"role":"TENSION","headline":"the problem / friction / what everyone gets wrong","body":"one tight line","visual":"one visual focus"},
+    {"role":"INSIGHT","headline":"one big idea","body":"one simple line — strong perspective, not generic","visual":"one visual focus"},
+    {"role":"PAYOFF","headline":"the reframe that makes it click","body":"the quiet truth about what this reveals about us","visual":"one visual focus"},
+    {"role":"ACT","headline":"the reason to act","body":"earned by the payoff — save it / use it / look for it; never 'follow for more'","visual":"one visual focus"}
   ]
 }
-Use 5 to 10 slides total: exactly one HOOK first, one CLOSE last, the rest STORY.`;
+Use 6 to 10 slides total: exactly one COVER first, then TENSION and several INSIGHT slides, then exactly one PAYOFF, and exactly one ACT last.`;
 
 const SOCIAL_INSTRUCTION = `${PREAMBLE}
 
@@ -446,6 +480,7 @@ Give the pack VARIETY by drawing from different archetypes across the posts (use
 - NUMBER BOMB — one surprising, true number that reframes the thing.
 - KREATURE TEACHER TRAX — a tiny practical lesson ripped down to its bones.
 - ORIGIN NUGGET — a short, real, surprising bit of where it came from.
+- THE PROVEN TRAX — one principle from someone with ACTUAL results (a proven coach, champion, researcher, or maker), attributed honestly and paraphrased, that the reader can steal and test.
 
 VOICE: savage curiosity, brutal clarity, funny, honest — never clickbait, never fabricated facts. Keep each caption tight (1-3 sentences, scroll-stopping). Give each post a short hashtag line that ALWAYS starts with #KreatureTrax and adds 2-4 fitting tags. Suggest a visual for each.
 
@@ -498,7 +533,7 @@ async function run(){
       render(r.parsed);
       setStatus('');
     } else if(mode==='carousel'){
-      setStatus('<span class="scan">Storyboarding the carousel</span>');
+      setStatus('<span class="scan">Building the viral carousel</span>');
       const r = await callPass(CAROUSEL_INSTRUCTION+thingLine+imgLine, 2600);
       if(!r.parsed) throw new Error(parseFailMsg(r));
       render(r.parsed);
@@ -513,7 +548,7 @@ async function run(){
       // Two-pass Standard: split so neither request truncates or times out.
       setStatus('<span class="scan">Hunting the trax · two passes</span>');
       const [ra,rb] = await Promise.allSettled([
-        callPass(INSTRUCTION_A+thingLine+imgLine, 5000),
+        callPass(INSTRUCTION_A+thingLine+imgLine, 5500),
         callPass(INSTRUCTION_B+thingLine+imgLine, 3800)
       ]);
       if(ra.status==='rejected') throw new Error(ra.reason.message);
@@ -588,16 +623,33 @@ function coverLine(thing){
   return `Kreature Trax Field Guide · ${no}`;
 }
 
+// "Who Left the Trax" — the experts with actual results on the subject.
+function expertsHTML(d){
+  const ex=(d.experts||[]).filter(x=>x&&(x.who||x.trax)).slice(0,6);
+  if(!ex.length) return '';
+  let h=`<div class="trax a-amber"><div class="th"><span class="tnum">\u2726</span><span class="tn">Who Left the Trax</span><span class="tsub">people with actual results — follow, then test it</span></div>`;
+  ex.forEach(x=>{
+    h+=`<div class="expert">
+      ${x.who?`<div class="ew">${esc(x.who)}</div>`:''}
+      ${x.cred?`<div class="ec">${esc(x.cred)}</div>`:''}
+      ${x.trax?`<div class="et">${esc(x.trax)}</div>`:''}
+      ${x.source?`<div class="es"><b>Source ·</b> ${esc(x.source)}</div>`:''}
+    </div>`;
+  });
+  h+=`</div>`;
+  return h;
+}
+
 function bodyHTML(d){
   let h='';
 
   // ---- CAROUSEL ----
   if(Array.isArray(d.slides) && d.slides.length){
-    h+=`<div class="kithead"><div class="kno">Kreature Trax · Carousel</div><div class="kc">${esc(d.thing||lastThing)}</div><div class="kr">A ${d.slides.length}-slide swipe-through post. Each card is one slide.</div></div>`;
+    h+=`<div class="kithead"><div class="kno">Kreature Trax · Viral Carousel</div><div class="kc">${esc(d.thing||lastThing)}</div><div class="kr">A ${d.slides.length}-slide swipe-through post built on the viral arc — Curiosity → Tension → Insight → Payoff → a reason to act. One idea per card.</div></div>`;
     d.slides.forEach((s,i)=>{
       if(!s) return;
       const role=esc(s.role||'STORY').toUpperCase();
-      const rcls=/hook/i.test(role)?'r-hook':/close|cta/i.test(role)?'r-cta':'r-story';
+      const rcls=/cover|hook/i.test(role)?'r-cover':/tension/i.test(role)?'r-tension':/payoff/i.test(role)?'r-payoff':/act|close|cta/i.test(role)?'r-act':'r-insight';
       h+=`<div class="slide ${rcls}">
         <div class="slide-top"><span class="slide-no">${i+1}</span><span class="slide-role">${role}</span></div>
         ${s.headline?`<div class="slide-h">${esc(s.headline)}</div>`:''}
@@ -627,6 +679,7 @@ function bodyHTML(d){
   // ---- header (Lite + Standard) ----
   h+=`<div class="kithead"><div class="kno">${esc(coverLine(d.thing||lastThing))}</div><div class="kc">${esc(d.thing||lastThing)}</div>${d.read?`<div class="kr">${esc(d.read)}</div>`:''}</div>`;
   if(d.take) h+=`<div class="take"><div class="k">The Kreature's Take</div><div class="v">\u201C${esc(d.take)}\u201D</div></div>`;
+  h+=expertsHTML(d);
 
   // ---- LITE ----
   if(Array.isArray(d.ideas) && d.ideas.length){
@@ -766,7 +819,8 @@ function kitToText(d){
   }
 
   if(d.read){ head('The Read'); push(d.read); }
-  if(d.take){ head("The Kreature's Take"); push('“'+d.take+'”'); }
+  if(d.take){ head("The Kreature's Take"); push('\u201C'+d.take+'\u201D'); }
+  if((d.experts||[]).length){ head('Who Left the Trax — People With Actual Results'); (d.experts||[]).forEach(x=>{ if(x&&(x.who||x.trax)){ push('- '+(x.who||'')+(x.cred?' ('+x.cred+')':'')); if(x.trax) push('  \u2192 '+x.trax); if(x.source) push('  Source: '+x.source); } }); }
 
   // Lite
   if(Array.isArray(d.ideas) && d.ideas.length){
